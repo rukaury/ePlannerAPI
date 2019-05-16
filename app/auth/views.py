@@ -2,7 +2,8 @@ from app import bcrypt
 from flask import Blueprint, request
 from flask.views import MethodView
 from app.auth.helper import response, response_auth, token_required
-from app.models import User, BlackListToken
+from app.models.users import User
+from app.models.blacklist_token import BlackListToken
 import re
 
 auth = Blueprint('auth', __name__)
