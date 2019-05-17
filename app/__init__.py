@@ -36,3 +36,7 @@ app.register_blueprint(tickets, url_prefix='/v1')
 from app.guests.views import guests
 
 app.register_blueprint(guests, url_prefix='/v1')
+
+from app.docs.views import docs
+
+app.register_blueprint(docs)

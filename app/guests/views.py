@@ -49,7 +49,7 @@ def create_guest(current_user):
                 user_guest = Guest(f_name, l_name, organization, email, current_user.id)
                 user_guest.save()
                 return response_for_created_guest(user_guest, 201)
-            return response('failed', 'Missing some data', 400)
+            return response('failed', 'Missing some guest data', 400)
         return response('failed', 'Wrong email format', 401)        
     return response('failed', 'Content-type must be json', 202)
 
@@ -71,7 +71,7 @@ def get_guest(current_user, guest_id):
         user_guest = User.get_by_id(current_user.id).guests.filter_by(guest_id=guest_id).first()
         if user_guest:
             return response_for_user_guest(user_guest.json())
-        return response('failed', "guest not found", 404)
+        return response('failed', "Guest not found", 404)
 
 
 @guests.route('/guests/<guest_id>', methods=['PUT'])

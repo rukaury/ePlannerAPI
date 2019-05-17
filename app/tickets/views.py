@@ -87,8 +87,9 @@ def post(current_user, event_id, guest_id):
     ticket_vvip = int(data.get('vvip'))
     ticket_accepted = int(data.get('accepted'))
     ticket_scanned = int(data.get('scanned'))
+    ticket_comments = data.get('comments') if data.get('comments') is not None else ""
     if not event_id and not guest_id and not ticket_qr_code and not ticket_vvip and not ticket_scanned and not ticket_accepted:
-        return response('failed', 'Some data are missing', 401)
+        return response('failed', 'No ticket value attribute found', 401)
 
     # Get the user event
     event = get_user_event(current_user, event_id)
@@ -107,6 +108,7 @@ def post(current_user, event_id, guest_id):
 
     # Save the event ticket into the Database
     ticket = Ticket(event_id, guest_id, ticket_qr_code, ticket_vvip, ticket_accepted, ticket_scanned)
+    ticket.comments = ticket_comments
     ticket.save()
     return response_with_event_ticket('success', ticket, 200)
 
@@ -147,15 +149,16 @@ def edit_ticket(current_user, event_id, ticket_id):
     scanned = request_json_data.get('scanned') if request_json_data.get('scanned') is not None else ""
     accepted = request_json_data.get('accepted') if request_json_data.get('accepted') is not None else ""
     vvip = request_json_data.get('vvip') if request_json_data.get('vvip') is not None else ""
+    comments = request_json_data.get('comments') if request_json_data.get('comments') is not None else ""
     
     if not request_json_data:
         return response('failed', 'No attributes specified in the request', 401)
 
     if not scanned and not accepted and not vvip:
-        return response('failed', 'No data or value attribute found', 401)
+        return response('failed', 'No ticket data or value attribute found', 401)
 
     # Update the ticket record
-    ticket.update(scanned, accepted, vvip)
+    ticket.update(scanned, accepted, vvip, comments)
     return response_with_event_ticket('success', ticket, 200)
 
 

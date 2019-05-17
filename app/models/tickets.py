@@ -15,6 +15,7 @@ class Ticket(db.Model):
     vvip = db.Column(db.Boolean, nullable=False)
     accepted = db.Column(db.Boolean, nullable=False)
     scanned = db.Column(db.Integer, nullable=False)
+    comments = db.Column(db.Integer, nullable=True)
     ticket_created_on = db.Column(db.DateTime, nullable=False)
     ticket_updated_on = db.Column(db.DateTime, nullable=False)
 
@@ -36,7 +37,7 @@ class Ticket(db.Model):
         db.session.add(self)
         db.session.commit()
 
-    def update(self, scanned, accepted, vvip):
+    def update(self, scanned, accepted, vvip, comments):
         """
         Update data in the ticket
         :param name: Name
@@ -47,6 +48,7 @@ class Ticket(db.Model):
         self.scanned = scanned if scanned else self.scanned
         self.accepted = accepted if accepted else self.accepted
         self.vvip = vvip if vvip else self.vvip
+        self.comments = comments if comments else self.comments
         
         db.session.commit()
 
@@ -71,6 +73,7 @@ class Ticket(db.Model):
             'vvip': self.vvip,
             'accepted': self.accepted,
             'scanned': self.scanned,
+            'comments' : self.comments,
             'created_on': self.ticket_created_on.isoformat(),
             'modified_on': self.ticket_updated_on.isoformat()
         }

@@ -22,7 +22,7 @@ def response_for_created_guest(guest, status_code):
     :param guest: Guest
     :return: Http Response
     """
-    return make_response(jsonify({
+    return make_response(jsonify({"guest" : {
         'status': 'success',
         'guest_id': guest.guest_id,
         'first_name': guest.first_name,
@@ -31,7 +31,7 @@ def response_for_created_guest(guest, status_code):
         'organization': guest.organization,
         'created_on': guest.guest_created_on,
         'modified_on': guest.guest_updated_on
-    })), status_code
+    }})), status_code
 
 
 def response(status, message, code):

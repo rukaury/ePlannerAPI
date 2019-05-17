@@ -43,6 +43,7 @@ class Event(db.Model):
         self.event_name = an_event.event_name if an_event.event_name else self.event_name
         self.event_location = an_event.event_location if an_event.event_location else self.event_location
         self.event_time = an_event.event_time if an_event.event_time else self.event_time
+        self.event_eval_link = an_event.event_eval_link if an_event.event_eval_link else self.event_eval_link
         self.event_updated_on = datetime.datetime.utcnow()
 
         db.session.commit()
@@ -64,6 +65,7 @@ class Event(db.Model):
             'event_id': self.event_id,
             'event_name': self.event_name,
             'event_location': self.event_location,
+            'eval_link': self.event_eval_link,
             'event_time': self.event_time.isoformat(),
             'created_on': self.event_created_on.isoformat(),
             'modified_on': self.event_updated_on.isoformat()
