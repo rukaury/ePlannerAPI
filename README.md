@@ -64,21 +64,21 @@ password must be at least four(4) characters.
             "status": "success"
         }
 
-+ Response 202 (application/json)
++ Response 400 (application/json)
 
         {
-            "message": "Missing or wrong email format or password",
+            "message": "Missing or wrong email format or password length",
             "status": "failed"
         }
 
-+ Response 202 (application/json)
++ Response 400 (application/json)
 
         {
             "message": "Failed, User already exists, Please sign In",
             "status": "failed"
         }
 
-+ Response 202 (application/json)
++ Response 400 (application/json)
 
         {
           "message": "Content-type must be json",
@@ -107,7 +107,7 @@ of the auth token for you will need it for all user requests.
             "status": "success"
         }
 
-+ Response 202 (application/json)
++ Response 400 (application/json)
 
         {
           "message": "Content-type must be json",

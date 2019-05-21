@@ -16,6 +16,8 @@ class BaseConfig:
     AUTH_TOKEN_EXPIRY_DAYS = 30
     AUTH_TOKEN_EXPIRY_SECONDS = 3600
     EVENTS_AND_TICKETS_PER_PAGE = 3
+    SWAGGER_URL = '/docs'
+    SWAGGER_API_URL = "http://172.17.242.17/ePlanner.yaml"
 
 
 class DevelopmentConfig(BaseConfig):
@@ -28,3 +30,5 @@ class DevelopmentConfig(BaseConfig):
     AUTH_TOKEN_EXPIRY_DAYS = 1
     AUTH_TOKEN_EXPIRY_SECONDS = 20
     EVENTS_AND_TICKETS_PER_PAGE = 3
+    SWAGGER_URL = '/docs'
+    SWAGGER_API_URL = "http://172.17.242.17/ePlanner.yaml"
