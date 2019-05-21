@@ -32,3 +32,16 @@ class DevelopmentConfig(BaseConfig):
     EVENTS_AND_TICKETS_PER_PAGE = 3
     SWAGGER_URL = '/docs'
     SWAGGER_API_URL = "http://172.17.242.17/ePlanner.yaml"
+
+class TestingConfig(BaseConfig):
+    """
+    Testing application configuration
+    """
+    DEBUG = True
+    TESTING = True
+    SQLALCHEMY_DATABASE_URI = os.getenv('DATABASE_URL_TEST', postgres_local_base + database_name + "_test")
+    BCRYPT_HASH_PREFIX = 4
+    AUTH_TOKEN_EXPIRY_DAYS = 0
+    AUTH_TOKEN_EXPIRY_SECONDS = 3
+    AUTH_TOKEN_EXPIRATION_TIME_DURING_TESTS = 5
+    BUCKET_AND_ITEMS_PER_PAGE = 3
