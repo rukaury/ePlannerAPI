@@ -66,13 +66,11 @@ class BaseTestCase(TestCase):
         self.assertTrue(data['event']['eval_link'], 'http://google.ca')
         self.assertIsInstance(data['event_id'], int, msg='Value should be a string')
 
-
-
-        def create_events(self, token):
-        """
+    def create_events(self, token):
+        '''
         Helper function to create an event
         :return:
-        """
+        '''
         events = [
             {'event': {'name' : 'Public Service Orientation Workshop', 'location' : 'Ottawa', 'time' : '2019-05-22 15:00:00'}},
             {'event': {'name' : 'Administrative Professionals Forum', 'location' : '1781 Russell Road, Ottawa, ON, K1G 0N1', 'time' : '2019-05-23 15:00:00', 'eval_link' : 'http://youtube.com'}},
