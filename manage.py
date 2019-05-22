@@ -59,7 +59,7 @@ def dummy():
 
     for j in range(500):
         # Add guests to the database
-        guest = Guest(faker.name.first_name(), faker.name.last_name(), faker.name.company_name(), 'email' + str(j) + '@test.ca', user.id)
+        guest = Guest(faker.name.first_name(), faker.name.last_name(), faker.name.company_name(), faker.email.address(user=None), user.id)
         guest.save()
 
     for ev in range(1000):
