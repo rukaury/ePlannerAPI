@@ -23,7 +23,6 @@ def response_for_created_event(event, status_code):
     :return: Http Response
     """
     return make_response(jsonify({'event' : {
-        'status': 'success',
         'event_id': event.event_id,
         'event_name': event.event_name,
         'event_location': event.event_location,
@@ -31,7 +30,7 @@ def response_for_created_event(event, status_code):
         'event_time': event.event_time,
         'created_on': event.event_created_on,
         'modified_on': event.event_updated_on
-    }})), status_code
+    }, 'status': 'success'})), status_code
 
 
 def response(status, message, code):

@@ -1,7 +1,7 @@
 import os
 
 base_dir = os.path.abspath(os.path.dirname(__file__))
-postgres_local_base = 'postgresql://postgres:password@localhost:5432/'
+postgres_local_base = 'postgresql://postgres:password@localhost/'
 database_name = 'eplannerapi'
 
 
@@ -15,7 +15,7 @@ class BaseConfig:
     SQLALCHEMY_TRACK_MODIFICATIONS = False
     AUTH_TOKEN_EXPIRY_DAYS = 30
     AUTH_TOKEN_EXPIRY_SECONDS = 3600
-    EVENTS_AND_TICKETS_PER_PAGE = 3
+    EVENTS_AND_TICKETS_PER_PAGE = 4
     SWAGGER_URL = '/docs'
     SWAGGER_API_URL = "http://172.17.242.17/ePlanner.yaml"
 
@@ -29,7 +29,7 @@ class DevelopmentConfig(BaseConfig):
     BCRYPT_HASH_PREFIX = 4
     AUTH_TOKEN_EXPIRY_DAYS = 1
     AUTH_TOKEN_EXPIRY_SECONDS = 20
-    EVENTS_AND_TICKETS_PER_PAGE = 3
+    EVENTS_AND_TICKETS_PER_PAGE = 4
     SWAGGER_URL = '/docs'
     SWAGGER_API_URL = "http://172.17.242.17/ePlanner.yaml"
 
@@ -44,4 +44,4 @@ class TestingConfig(BaseConfig):
     AUTH_TOKEN_EXPIRY_DAYS = 0
     AUTH_TOKEN_EXPIRY_SECONDS = 3
     AUTH_TOKEN_EXPIRATION_TIME_DURING_TESTS = 5
-    BUCKET_AND_ITEMS_PER_PAGE = 3
+    BUCKET_AND_ITEMS_PER_PAGE = 4
