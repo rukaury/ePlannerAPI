@@ -78,8 +78,9 @@ class BaseTestCase(TestCase):
             {'event': {'name' : 'Administrative Professionals Forum', 'location' : '1781 Russell Road, Ottawa, ON, K1G 0N1', 'time' : '2019-05-23 15:00:00', 'eval_link' : 'http://youtube.com'}},
             {'event': {'name' : 'Welcoming Event for Students', 'location' : 'Montreal', 'time' : '2019-05-23 15:00:00'}},
             {'event': {'name' : 'HR-to-Pay Engagement Day', 'location' : 'Toronto', 'time' : '2019-05-23 15:00:00', 'eval_link' : 'http://facebook.com'}},
-            {'event': {'name' : 'Rebuilding Public Trust: The New Impact Assessment Regime', 'location' : 'Halifax', 'time' : '2019-05-23 15:00:00'}},
-            {'event': {'name' : 'Innovating to Support Official Languages', 'location' : 'Sudbury', 'time' : '2019-05-23 15:00:00', 'eval_link' : 'http://web.whatsapp.com'}},
+            {'event': {'name' : 'Rebuilding Public Trust: The New Impact Assessment Regime', 'location' : 'Halifax', 'time' : '2019-08-23 09:00:00'}},
+            {'event': {'name' : 'Innovating to Support Official Languages', 'location' : 'Sudbury', 'time' : '2019-03-17 11:00:00', 'eval_link' : 'http://web.whatsapp.com'}},
+            {'event': {'name' : 'Disruptive technologies', 'location' : 'Vancouver', 'time' : '2019-10-23 15:00:00', 'eval_link' : 'http://web.whatsapp.com'}},
         ]
         for event in events:
             response = self.client.post(
