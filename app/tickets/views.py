@@ -23,7 +23,7 @@ def get_tickets(current_user, event_id):
     # Get the user event
     event = get_user_event(current_user, event_id)
     if event is None:
-        return response('failed', 'event not found', 404)
+        return response('failed', 'Event not found', 404)
 
     # Get tickets in the event
     page = request.args.get('page', 1, type=int)
@@ -39,7 +39,7 @@ def get_tickets(current_user, event_id):
     return response_with_pagination([], previous, nex, 0)
 
 
-@tickets.route('/events/<event_id>/tickets/<ticket_id>/', methods=['GET'])
+@tickets.route('/events/<event_id>/tickets/<ticket_id>', methods=['GET'])
 @token_required
 @event_required
 def get_ticket(current_user, event_id, ticket_id):
@@ -68,7 +68,7 @@ def get_ticket(current_user, event_id, ticket_id):
         abort(404)
     return response_with_event_ticket('success', ticket, 200)
 
-@tickets.route('/events/<event_id>/guests/<guest_id>/tickets', methods=['POST'])
+@tickets.route('/events/<event_id>/tickets/<guest_id>', methods=['POST'])
 @token_required
 @guest_required
 @event_required
@@ -84,12 +84,13 @@ def post(current_user, event_id, guest_id):
 
     data = request.get_json().get("ticket")
     ticket_qr_code = data.get('qr_code')
-    ticket_vvip = int(data.get('vvip'))
-    ticket_accepted = int(data.get('accepted'))
-    ticket_scanned = int(data.get('scanned'))
+    ticket_vvip = data.get('vvip')
+    ticket_accepted = data.get('accepted')
+    ticket_scanned = data.get('scanned')
     ticket_comments = data.get('comments') if data.get('comments') is not None else ""
-    if not event_id and not guest_id and not ticket_qr_code and not ticket_vvip and not ticket_scanned and not ticket_accepted:
-        return response('failed', 'No ticket value attribute found', 401)
+
+    if not(event_id and guest_id and ticket_qr_code and ticket_vvip and ticket_scanned and ticket_accepted):
+        return response('failed', 'Missing some ticket attribute(s), nothing has changed.', 401)
 
     # Get the user event
     event = get_user_event(current_user, event_id)
@@ -113,7 +114,7 @@ def post(current_user, event_id, guest_id):
     return response_with_event_ticket('success', ticket, 200)
 
 
-@tickets.route('/events/<event_id>/tickets/<ticket_id>/', methods=['PUT'])
+@tickets.route('/events/<event_id>/tickets/<ticket_id>', methods=['PUT'])
 @token_required
 @event_required
 def edit_ticket(current_user, event_id, ticket_id):
@@ -150,19 +151,16 @@ def edit_ticket(current_user, event_id, ticket_id):
     accepted = request_json_data.get('accepted') if request_json_data.get('accepted') is not None else ""
     vvip = request_json_data.get('vvip') if request_json_data.get('vvip') is not None else ""
     comments = request_json_data.get('comments') if request_json_data.get('comments') is not None else ""
-    
-    if not request_json_data:
-        return response('failed', 'No attributes specified in the request', 401)
 
-    if not scanned and not accepted and not vvip:
-        return response('failed', 'No ticket data or value attribute found', 401)
+    if not(scanned and accepted and vvip):
+        return response('failed', 'Missing some ticket attribute(s), nothing has changed.', 401)
 
     # Update the ticket record
     ticket.update(scanned, accepted, vvip, comments)
     return response_with_event_ticket('success', ticket, 200)
 
 
-@tickets.route('/events/<event_id>/tickets/<ticket_id>/', methods=['DELETE'])
+@tickets.route('/events/<event_id>/tickets/<ticket_id>', methods=['DELETE'])
 @token_required
 @event_required
 def delete(current_user, event_id, ticket_id):

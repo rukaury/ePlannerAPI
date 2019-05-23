@@ -19,7 +19,7 @@ class TestEventBluePrint(BaseTestCase):
         """
         with self.client:
             response = self.client.post(
-                'v1/events/',
+                'v1/events',
                 headers=dict(Authorization='Bearer ' + self.get_user_token()),
                 data=json.dumps({"event":{}}),
                 content_type='application/json'
@@ -36,7 +36,7 @@ class TestEventBluePrint(BaseTestCase):
         """
         with self.client:
             response = self.client.post(
-                'v1/events/',
+                'v1/events',
                 headers=dict(Authorization='Bearer ' + self.get_user_token()),
                 data=json.dumps(dict(event = dict(name = "Some Event", location="7 Bayview yards", time = "2019-05-22 10:00:00", eval_link="http://google.ca")))
             )
@@ -52,7 +52,7 @@ class TestEventBluePrint(BaseTestCase):
         """
         with self.client:
             response = self.client.get(
-                'v1/events/',
+                'v1/events',
                 headers=dict(Authorization='Bearer ' + self.get_user_token())
             )
             data = json.loads(response.data.decode())
@@ -89,7 +89,7 @@ class TestEventBluePrint(BaseTestCase):
             token = self.get_user_token()
             # Create a Event
             response = self.client.post(
-                'v1/events/',
+                'v1/events',
                 data=json.dumps(dict(event = dict(name = "Some Event", location="7 Bayview yards", time = "2019-05-22 10:00:00", eval_link="http://google.ca"))),
                 headers=dict(Authorization='Bearer ' + token),
                 content_type='application/json'
@@ -176,7 +176,7 @@ class TestEventBluePrint(BaseTestCase):
 
             # Create a Event
             response = self.client.post(
-                'v1/events/',
+                'v1/events',
                 data=json.dumps(dict(event = dict(name = "Some Event", location="7 Bayview yards", time = "2019-05-22 10:00:00", eval_link="http://google.ca"))),
                 headers=dict(Authorization='Bearer ' + token),
                 content_type='application/json'
@@ -355,7 +355,7 @@ class TestEventBluePrint(BaseTestCase):
             # Get an auth token
             token = self.get_user_token()
             response = self.client.post(
-                'v1/events/',
+                'v1/events',
                 data=json.dumps(dict(event = dict(name = "Manion event", location="7 Bayview yards", time = "2019-05-22 10:00:00", eval_link="http://google.ca"))),
                 headers=dict(Authorization='Bearer ' + token),
                 content_type='application/json'
@@ -407,7 +407,7 @@ class TestEventBluePrint(BaseTestCase):
             token = self.get_user_token()
             self.create_events(token)
             response = self.client.get(
-                'v1/events/?q=T',
+                'v1/events?q=T',
                 headers=dict(Authorization='Bearer ' + token)
             )
             data = json.loads(response.data.decode())
@@ -416,7 +416,7 @@ class TestEventBluePrint(BaseTestCase):
             self.assertEqual(len(data['events']), 4)
             self.assertEqual(data['events'][0]['event_id'], 1)
             self.assertEqual(data['count'], 6)
-            self.assertEqual(data['next'], 'http://localhost/v1/events/?q=T&page=2')
+            self.assertEqual(data['next'], 'http://localhost/v1/events?q=T&page=2')
             self.assertEqual(data['previous'], None)
             self.assertEqual(response.status_code, 200)
 
@@ -424,14 +424,14 @@ class TestEventBluePrint(BaseTestCase):
         """
         Test Events are returned when a query search q is present in the url
         Also test that the next page pagination string is None
-        and previous is 'http://localhost/events/1/items/?page=1'
+        and previous is 'http://localhost/events/1?page=1'
         :return:
         """
         with self.client:
             token = self.get_user_token()
             self.create_events(token)
             response = self.client.get(
-                'v1/events/?q=T&page=2',
+                'v1/events?q=T&page=2',
                 headers=dict(Authorization='Bearer ' + token)
             )
             data = json.loads(response.data.decode())
@@ -441,7 +441,7 @@ class TestEventBluePrint(BaseTestCase):
             self.assertEqual(data['events'][0]['event_id'], 5)
             self.assertEqual(data['count'], 6)
             self.assertEqual(data['next'], None)
-            self.assertEqual(data['previous'], 'http://localhost/v1/events/?q=T&page=1')
+            self.assertEqual(data['previous'], 'http://localhost/v1/events?q=T&page=1')
             self.assertEqual(response.status_code, 200)
 
 

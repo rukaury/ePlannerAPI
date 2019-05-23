@@ -451,7 +451,7 @@ At least one data attribute and value need to be provided.
 
 ### Tickets
 
-#### Event Ticket Resources [/events/{event_id}/tickets{?page}/{?q}] or [/events/{event_id}/guests/{guest_id}/tickets] 
+#### Event Ticket Resources [/events/{event_id}/tickets{?page}/{?q}] or [/events/{event_id}/tickets/{guest_id}] 
 
 You can create, read, update and delete event tickets.
 

@@ -9,7 +9,7 @@ from app.models.events import Event
 events = Blueprint('events', __name__)
 
 
-@events.route('/events/', methods=['GET'])
+@events.route('/events', methods=['GET'])
 @token_required
 def eventlist(current_user):
     """
@@ -29,7 +29,7 @@ def eventlist(current_user):
     return response_with_pagination([], previous, nex, 0)
 
 
-@events.route('/events/', methods=['POST'])
+@events.route('/events', methods=['POST'])
 @token_required
 def create_event(current_user):
     """

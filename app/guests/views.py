@@ -10,7 +10,7 @@ import re
 guests = Blueprint('guests', __name__)
 
 
-@guests.route('/guests/', methods=['GET'])
+@guests.route('/guests', methods=['GET'])
 @token_required
 def guestlist(current_user):
     """
@@ -30,7 +30,7 @@ def guestlist(current_user):
     return response_with_pagination([], previous, nex, 0)
 
 
-@guests.route('/guests/', methods=['POST'])
+@guests.route('/guests', methods=['POST'])
 @token_required
 def create_guest(current_user):
     """

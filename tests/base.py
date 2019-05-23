@@ -52,7 +52,7 @@ class BaseTestCase(TestCase):
         :return:
         """
         response = self.client.post(
-            'v1/events/',
+            'v1/events',
             data=json.dumps(dict(event = dict(name = "Some Event", location="7 Bayview yards", time = "2019-05-22 10:00:00", eval_link="http://google.ca"))),
             headers=dict(Authorization='Bearer ' + token),
             content_type='application/json'
@@ -73,7 +73,7 @@ class BaseTestCase(TestCase):
         :return:
         """
         response = self.client.post(
-            'v1/guests/',
+            'v1/guests',
             data=json.dumps(dict(guest = dict(first_name = "Tim", last_name="Hortons", organization = "TIMS", email="tim.hortons@tims.ca"))),
             headers=dict(Authorization='Bearer ' + token),
             content_type='application/json'
@@ -102,7 +102,7 @@ class BaseTestCase(TestCase):
         ]
         for event in events:
             response = self.client.post(
-                'v1/events/',
+                'v1/events',
                 data=json.dumps(dict(event)),
                 headers=dict(Authorization='Bearer ' + token),
                 content_type='application/json'
@@ -131,11 +131,12 @@ class BaseTestCase(TestCase):
             {'guest': {'first_name' : 'Angelina', 'last_name' : 'Jolly', 'organization' : 'CBSA', 'email' : 'email3@email.com'}},
             {'guest': {'first_name' : 'Edna', 'last_name' : 'Mode', 'organization' : 'CRA', 'email' : 'email4@email.com'}},
             {'guest': {'first_name' : 'Randle', 'last_name' : 'McMurphy', 'organization' : 'CSPS', 'email' : 'email5@email.com'}},
-            {'guest': {'first_name' : 'Optimus', 'last_name' : 'Prime', 'organization' : 'CFA', 'email' : 'email6@email.com'}}
+            {'guest': {'first_name' : 'Optimus', 'last_name' : 'Prime', 'organization' : 'CFA', 'email' : 'email6@email.com'}},
+            {'guest': {'first_name' : 'Niyongabo', 'last_name' : 'Jean', 'organization' : 'CFA', 'email' : 'email7@email.com'}}
         ]
         for guest in guests:
             response = self.client.post(
-                'v1/guests/',
+                'v1/guests',
                 data=json.dumps(dict(guest)),
                 headers=dict(Authorization='Bearer ' + token),
                 content_type='application/json'

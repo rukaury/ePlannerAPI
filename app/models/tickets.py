@@ -15,7 +15,7 @@ class Ticket(db.Model):
     vvip = db.Column(db.Boolean, nullable=False)
     accepted = db.Column(db.Boolean, nullable=False)
     scanned = db.Column(db.Integer, nullable=False)
-    comments = db.Column(db.Integer, nullable=True)
+    comments = db.Column(db.Text, nullable=True)
     ticket_created_on = db.Column(db.DateTime, nullable=False)
     ticket_updated_on = db.Column(db.DateTime, nullable=False)
 

@@ -19,7 +19,7 @@ class TestGuestBluePrint(BaseTestCase):
         """
         with self.client:
             response = self.client.post(
-                'v1/guests/',
+                'v1/guests',
                 headers=dict(Authorization='Bearer ' + self.get_user_token()),
                 data=json.dumps({"guest":{}}),
                 content_type='application/json'
@@ -36,7 +36,7 @@ class TestGuestBluePrint(BaseTestCase):
         """
         with self.client:
             response = self.client.post(
-                'v1/guests/',
+                'v1/guests',
                 headers=dict(Authorization='Bearer ' + self.get_user_token()),
                 data=json.dumps(dict(guest = dict(first_name = "Tim", last_name="Hortons", organization = "TIMS", email="tim.hortons@tims.ca")))
             )
@@ -52,7 +52,7 @@ class TestGuestBluePrint(BaseTestCase):
         """
         with self.client:
             response = self.client.get(
-                'v1/guests/',
+                'v1/guests',
                 headers=dict(Authorization='Bearer ' + self.get_user_token())
             )
             data = json.loads(response.data.decode())
@@ -89,7 +89,7 @@ class TestGuestBluePrint(BaseTestCase):
             token = self.get_user_token()
             # Create a Guest
             response = self.client.post(
-                'v1/guests/',
+                'v1/guests',
                 data=json.dumps(dict(guest = dict(first_name = "Tim", last_name="Hortons", organization = "TIMS", email="tim.hortons@tims.ca"))),
                 headers=dict(Authorization='Bearer ' + token),
                 content_type='application/json'
@@ -176,7 +176,7 @@ class TestGuestBluePrint(BaseTestCase):
 
             # Create a Guest
             response = self.client.post(
-                'v1/guests/',
+                'v1/guests',
                 data=json.dumps(dict(guest = dict(first_name = "Tim", last_name="Hortons", organization = "TIMS", email="tim.hortons@tims.ca"))),
                 headers=dict(Authorization='Bearer ' + token),
                 content_type='application/json'
@@ -355,7 +355,7 @@ class TestGuestBluePrint(BaseTestCase):
             # Get an auth token
             token = self.get_user_token()
             response = self.client.post(
-                'v1/guests/',
+                'v1/guests',
                 data=json.dumps(dict(guest = dict(first_name = "Tim", last_name="Hortons", organization = "TIMS", email="tim.hortons@tims.ca"))),
                 headers=dict(Authorization='Bearer ' + token),
                 content_type='application/json'
@@ -399,7 +399,7 @@ class TestGuestBluePrint(BaseTestCase):
     def test_guests_returned_when_searched(self):
         """
         Test Guests are returned when a query search q is present in the url
-        Also test that the next page pagination string is 'http://localhost/guests/1/items/?page=2'
+        Also test that the next page pagination string is 'http://localhost/guests?page=2'
         and previous is none
         :return:
         """
@@ -407,7 +407,7 @@ class TestGuestBluePrint(BaseTestCase):
             token = self.get_user_token()
             self.create_guests(token)
             response = self.client.get(
-                'v1/guests/?q=T',
+                'v1/guests?q=T',
                 headers=dict(Authorization='Bearer ' + token)
             )
             data = json.loads(response.data.decode())
@@ -424,14 +424,14 @@ class TestGuestBluePrint(BaseTestCase):
         """
         Test Guests are returned when a query search q is present in the url
         Also test that the next page pagination string is None
-        and previous is 'http://localhost/guests/1/items/?page=1'
+        and previous is 'http://localhost/guests?page=1'
         :return:
         """
         with self.client:
             token = self.get_user_token()
             self.create_guests(token)
             response = self.client.get(
-                'v1/guests/?q=T&page=2',
+                'v1/guests?q=T&page=2',
                 headers=dict(Authorization='Bearer ' + token)
             )
             data = json.loads(response.data.decode())
@@ -440,7 +440,7 @@ class TestGuestBluePrint(BaseTestCase):
             self.assertEqual(len(data['guests']), 0)
             self.assertEqual(data['count'], 0)
             self.assertEqual(data['next'], None)
-            self.assertEqual(data['previous'], 'http://localhost/v1/guests/?q=T&page=1')
+            self.assertEqual(data['previous'], 'http://localhost/v1/guests?q=T&page=1')
             self.assertEqual(response.status_code, 200)
 
 

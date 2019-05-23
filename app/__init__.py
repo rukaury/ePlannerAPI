@@ -28,7 +28,7 @@ app.config['SWAGGER_URL'],
 app.config['SWAGGER_API_URL'],
 config={'app_name': "ePlanner API"})
 
-# Register blue prints
+# Register blueprints
 from app.auth.views import auth
 
 app.register_blueprint(auth, url_prefix='/v1')
@@ -46,3 +46,6 @@ from app.guests.views import guests
 app.register_blueprint(guests, url_prefix='/v1')
 
 app.register_blueprint(swaggerui_blueprint, url_prefix='/docs')
+
+# Import the application views
+from app import views
