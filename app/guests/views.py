@@ -96,7 +96,7 @@ def edit_guest(current_user, guest_id):
             return response('failed', 'Wrong email format', 401)
 
         updated_guest = Guest(f_name, l_name, organization, email, current_user.id)
-        if updated_guest:
+        if f_name or l_name or organization or email:
             try:
                 int(guest_id)
             except ValueError:

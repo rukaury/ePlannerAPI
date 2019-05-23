@@ -60,11 +60,11 @@ class BaseTestCase(TestCase):
         data = json.loads(response.data.decode())
         self.assertEqual(response.status_code, 201)
         self.assertTrue(data['status'], 'success')
-        self.assertTrue(data['event']['name'], 'Some Event')
-        self.assertTrue(data['event']['location'], '7 Bayview yards')
-        self.assertTrue(data['event']['time'], '2019-05-22 10:00:00')
-        self.assertTrue(data['event']['eval_link'], 'http://google.ca')
-        self.assertIsInstance(data['event_id'], int, msg='Value should be a string')
+        self.assertTrue(data['event']['event_name'], 'Some Event')
+        self.assertTrue(data['event']['event_location'], '7 Bayview yards')
+        self.assertTrue(data['event']['event_time'], '2019-05-22 10:00:00')
+        self.assertTrue(data['event']['event_eval_link'], 'http://google.ca')
+        self.assertIsInstance(data['event']['event_id'], int, msg='Value should be a string')
 
     def create_events(self, token):
         '''
@@ -89,9 +89,11 @@ class BaseTestCase(TestCase):
             data = json.loads(response.data.decode())
             self.assertEqual(response.status_code, 201)
             self.assertTrue(data['status'], 'success')
-            self.assertTrue(data['event']['name'], event['name'])
-            self.assertTrue(data['event']['location'], event['location'])
-            self.assertTrue(data['event']['time'], event['time'])
-            if(event['eval_link'] is not None):
-                self.assertTrue(data['event']['eval_link'], event['eval_link'])
-            self.assertIsInstance(data['event_id'], int, msg='Value should be a string')
+            self.assertTrue(data['event']['event_name'], event['event']['name'])
+            self.assertTrue(data['event']['event_location'], event['event']['location'])
+            self.assertTrue(data['event']['event_time'], event['event']['time'])
+            try:
+                self.assertTrue(data['event']['event_eval_link'], event['event']['eval_link'])
+            except KeyError:
+                pass
+            self.assertIsInstance(data['event']['event_id'], int, msg='Value should be a string')

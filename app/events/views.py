@@ -39,16 +39,16 @@ def create_event(current_user):
     """
     if request.content_type == 'application/json':
         data = request.get_json().get("event")
-        name = data.get('name')
-        location = data.get('location')
-        time = data.get('time')
+        name = data.get('name') if data.get('name') is not None else None
+        location = data.get('location') if data.get('location') is not None else None
+        time = data.get('time') if data.get('time') is not None else None 
         eval_link = data.get('eval_link') if data.get('eval_link') is not None else None
         if name and location and time:
             user_event = Event(name, location, time, current_user.id)
             user_event.event_eval_link = eval_link
             user_event.save()
             return response_for_created_event(user_event, 201)
-        return response('failed', 'Missing some event data', 400)
+        return response('failed', 'Missing some event data, nothing was changed', 400)
     return response('failed', 'Content-type must be json', 202)
 
 
@@ -90,7 +90,7 @@ def edit_event(current_user, event_id):
         eval_link = data.get('eval_link') if data.get("eval_link") is not None else ""
         updated_event = Event(name, location, time, current_user.id)
         updated_event.event_eval_link = eval_link
-        if updated_event:
+        if name or location or time or eval_link:
             try:
                 int(event_id)
             except ValueError:

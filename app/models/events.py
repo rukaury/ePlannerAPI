@@ -65,7 +65,7 @@ class Event(db.Model):
             'event_id': self.event_id,
             'event_name': self.event_name,
             'event_location': self.event_location,
-            'eval_link': self.event_eval_link,
+            'event_eval_link': self.event_eval_link,
             'event_time': self.event_time.isoformat(),
             'created_on': self.event_created_on.isoformat(),
             'modified_on': self.event_updated_on.isoformat()
