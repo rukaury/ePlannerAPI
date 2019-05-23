@@ -1044,7 +1044,23 @@ At least one data attribute and value need to be provided.
 
 ## Running the tests
 
-Tests have not been implemented yet.
+Before running the application tests, update your env variables.
+
+    export  APP_SETTINGS=app.config.TestingConfig
+    export DATABASE_URL_TEST=<postgres database url>
+
+
+### Tests without coverage
+
+Run this command from terminal
+
+    python manage.py test
+
+### Tests with coverage
+
+Run this command from terminal
+
+    nosetests --with-coverage --cover-package=app
 
 ## Deployment
 
@@ -1052,8 +1068,7 @@ Not ready for deployment yet.
 
 ## Built with
 
-* [Flask](http://flask.pocoo.org) - Web framework used
-* [SQLAlchemy](https://www.sqlalchemy.org/) - SQL Toolkit and ORM
+Frameworks used are listed in the *requirements.txt* file
 
 ## Contributing
 
