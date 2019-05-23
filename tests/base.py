@@ -66,6 +66,27 @@ class BaseTestCase(TestCase):
         self.assertTrue(data['event']['event_eval_link'], 'http://google.ca')
         self.assertIsInstance(data['event']['event_id'], int, msg='Value should be a string')
 
+
+    def create_guest(self, token):
+        """
+        Helper function to create a guest
+        :return:
+        """
+        response = self.client.post(
+            'v1/guests/',
+            data=json.dumps(dict(guest = dict(first_name = "Tim", last_name="Hortons", organization = "TIMS", email="tim.hortons@tims.ca"))),
+            headers=dict(Authorization='Bearer ' + token),
+            content_type='application/json'
+        )
+        data = json.loads(response.data.decode())
+        self.assertEqual(response.status_code, 201)
+        self.assertTrue(data['status'], 'success')
+        self.assertTrue(data['guest']['first_name'], 'Tim')
+        self.assertTrue(data['guest']['last_name'], 'Hortons')
+        self.assertTrue(data['guest']['organization'], 'TIMS')
+        self.assertTrue(data['guest']['email'], 'tim.hortons@tims.ca')
+        self.assertIsInstance(data['guest']['guest_id'], int, msg='Value should be a string')
+
     def create_events(self, token):
         '''
         Helper function to create an event
@@ -97,3 +118,32 @@ class BaseTestCase(TestCase):
             except KeyError:
                 pass
             self.assertIsInstance(data['event']['event_id'], int, msg='Value should be a string')
+
+
+    def create_guests(self, token):
+        '''
+        Helper function to create a guest
+        :return:
+        '''
+        guests = [
+            {'guest': {'first_name' : 'John', 'last_name' : 'Wick', 'organization' : 'CDS', 'email' : 'email1@email.com'}},
+            {'guest': {'first_name' : 'Bradd', 'last_name' : 'Pitt', 'organization' : 'CSE', 'email' : 'email2@email.com'}},
+            {'guest': {'first_name' : 'Angelina', 'last_name' : 'Jolly', 'organization' : 'CBSA', 'email' : 'email3@email.com'}},
+            {'guest': {'first_name' : 'Edna', 'last_name' : 'Mode', 'organization' : 'CRA', 'email' : 'email4@email.com'}},
+            {'guest': {'first_name' : 'Randle', 'last_name' : 'McMurphy', 'organization' : 'CSPS', 'email' : 'email5@email.com'}},
+            {'guest': {'first_name' : 'Optimus', 'last_name' : 'Prime', 'organization' : 'CFA', 'email' : 'email6@email.com'}}
+        ]
+        for guest in guests:
+            response = self.client.post(
+                'v1/guests/',
+                data=json.dumps(dict(guest)),
+                headers=dict(Authorization='Bearer ' + token),
+                content_type='application/json'
+            )
+            data = json.loads(response.data.decode())
+            self.assertEqual(response.status_code, 201)
+            self.assertTrue(data['status'], 'success')
+            self.assertTrue(data['guest']['first_name'], guest['guest']['first_name'])
+            self.assertTrue(data['guest']['last_name'], guest['guest']['last_name'])
+            self.assertTrue(data['guest']['organization'], guest['guest']['organization'])
+            self.assertTrue(data['guest']['email'], guest['guest']['email'])

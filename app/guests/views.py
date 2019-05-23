@@ -43,14 +43,14 @@ def create_guest(current_user):
         f_name = data.get('first_name')
         l_name = data.get('last_name')
         organization = data.get('organization')
-        email = data.get('email')
-        if re.match(r"[^@]+@[^@]+\.[^@]+", email):
-            if f_name and l_name and organization and email:
+        email = data.get('email')        
+        if f_name and l_name and organization and email:
+            if re.match(r"[^@]+@[^@]+\.[^@]+", email):
                 user_guest = Guest(f_name, l_name, organization, email, current_user.id)
                 user_guest.save()
                 return response_for_created_guest(user_guest, 201)
-            return response('failed', 'Missing some guest data', 400)
-        return response('failed', 'Wrong email format', 401)        
+            return response('failed', 'Wrong email format', 401)    
+        return response('failed', 'Missing some guest data', 400)            
     return response('failed', 'Content-type must be json', 202)
 
 
@@ -66,7 +66,7 @@ def get_guest(current_user, guest_id):
     try:
         int(guest_id)
     except ValueError:
-        return response('failed', 'Please provide a valid guest Id', 400)
+        return response('failed', 'Please provide a valid Guest Id', 400)
     else:
         user_guest = User.get_by_id(current_user.id).guests.filter_by(guest_id=guest_id).first()
         if user_guest:
@@ -100,12 +100,12 @@ def edit_guest(current_user, guest_id):
             try:
                 int(guest_id)
             except ValueError:
-                return response('failed', 'Please provide a valid guest Id', 400)
+                return response('failed', 'Please provide a valid Guest Id', 400)
             user_guest = User.get_by_id(current_user.id).guests.filter_by(guest_id=guest_id).first()
             if user_guest:
                 user_guest.update(updated_guest)
                 return response_for_created_guest(user_guest, 201)
-            return response('failed', 'The guest with Id ' + guest_id + ' does not exist', 404)
+            return response('failed', 'The Guest with Id ' + guest_id + ' does not exist', 404)
         return response('failed', 'No attribute or value was specified, nothing was changed', 400)
     return response('failed', 'Content-type must be json', 202)
 
@@ -122,7 +122,7 @@ def delete_guest(current_user, guest_id):
     try:
         int(guest_id)
     except ValueError:
-        return response('failed', 'Please provide a valid guest Id', 400)
+        return response('failed', 'Please provide a valid Guest Id', 400)
     user_guest = User.get_by_id(current_user.id).guests.filter_by(guest_id=guest_id).first()
     if not user_guest:
         abort(404)

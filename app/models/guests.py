@@ -11,7 +11,7 @@ class Guest(db.Model):
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
     first_name = db.Column(db.Text, nullable=False)
     last_name = db.Column(db.Text, nullable=False)
-    organization = db.Column(db.Text, nullable=True)
+    organization = db.Column(db.Text, nullable=False)
     email = db.Column(db.String(255), unique=True, nullable=False)
     guest_created_on = db.Column(db.DateTime, nullable=False)
     guest_created_on = db.Column(db.DateTime, nullable=False)
@@ -64,7 +64,7 @@ class Guest(db.Model):
         :return:
         """
         return {
-            'id': self.guest_id,
+            'guest_id': self.guest_id,
             'first_name': self.first_name,
             'last_name': self.last_name,
             'organization': self.organization,
